@@ -29,7 +29,7 @@ Smart Lipsum is a lightweight Chrome extension that generates placeholder text i
 
 ### Chrome Web Store (Recommended)
 
-1. Visit the [Chrome Web Store listing](https://chrome.google.com/webstore/detail/EXTENSION_ID) *(coming soon)*
+1. Visit the [Chrome Web Store listing](https://chromewebstore.google.com/detail/mhbdpolifdmedilbifmekdiafpfdmckc)
 2. Click **"Add to Chrome"**
 3. Click the extension icon or press **Ctrl+Shift+L** to generate text
 
