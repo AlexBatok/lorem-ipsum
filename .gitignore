@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output
+extension/dist/
+
+# Packaged extension
+*.zip
+
+# Dev/internal docs (ASO, LLM optimization, plans, test assets)
+docs/aso-seo-llmo.md
+docs/lorem-plan.md
+docs/store-screenshots.md
+store-assets/
+export-screenshots.mjs
+test-lorem.mjs
+serve.mjs
+
+# Claude Code
+.claude/
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

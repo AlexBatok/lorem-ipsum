@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "Lorem Ipsum Generator — Smart Lipsum",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Generate lorem ipsum text instantly. Popup, right-click & hotkey. Copy plain text or HTML. Zero permissions. Fast & lightweight.",
+    "description": "Extension description"
+  }
+}
