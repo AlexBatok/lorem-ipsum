@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Lipsum — Chrome Extension for Placeholder Text</title>
+<meta name="description" content="Generate lorem ipsum, placeholder text, and dummy text instantly in Chrome. Three input methods: popup, right-click, keyboard shortcut. Zero data collection. Under 50KB.">
+<meta name="theme-color" content="#6366F1">
+<link rel="canonical" href="https://alexbatok.github.io/lorem-ipsum/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Smart Lipsum — Instant Placeholder Text for Chrome">
+<meta property="og:description" content="Generate lorem ipsum in three ways: popup, right-click, keyboard shortcut. Zero permissions. 100% offline.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alexbatok.github.io/lorem-ipsum/">
+
+<!-- Schema.org SoftwareApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Smart Lipsum",
+  "operatingSystem": "Chrome",
+  "applicationCategory": "DeveloperApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "A lightweight Chrome extension that generates lorem ipsum placeholder text instantly via popup, right-click context menu, and keyboard shortcut.",
+  "softwareVersion": "1.0.0",
+  "fileSize": "50KB",
+  "permissions": "clipboardWrite, storage, activeTab, contextMenus"
+}
+</script>
+
+<!-- Schema.org FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the best Chrome extension for generating lorem ipsum text?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Smart Lipsum is a lightweight Chrome extension that provides three ways to generate placeholder text: a popup interface, right-click context menu, and keyboard shortcut (Ctrl+Shift+L). It copies clean plain text, requires minimal permissions, and works entirely offline."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Smart Lipsum collect any user data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Smart Lipsum collects zero user data. It makes no network requests, includes no analytics or tracking code, and works 100% offline. The only stored data is your preferences, saved locally via Chrome sync storage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I generate HTML-formatted lorem ipsum text?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Toggle the HTML wrap option and choose from p, li (wrapped in ul), or heading tags (h1 through h3). The raw HTML code is copied to your clipboard, ready for pasting into code editors or CMS templates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Smart Lipsum work offline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, completely. Smart Lipsum works 100% offline. Text generation happens entirely on your device using a built-in word dictionary. It never contacts any external server."
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#6366F1;--purple-dark:#4F46E5;--bg:#fafafa;--text:#1a1a2e;--muted:#64748b;--card:#fff;--border:#e2e8f0;--radius:12px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.6}
+a{color:var(--purple);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;text-align:center;padding:80px 24px 64px}
+.hero h1{font-size:clamp(28px,5vw,48px);font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+.hero p{font-size:clamp(16px,2.5vw,20px);opacity:.9;max-width:640px;margin:0 auto 32px}
+.cta{display:inline-block;background:#fff;color:var(--purple);font-weight:700;font-size:16px;padding:14px 32px;border-radius:99px;transition:transform .15s,box-shadow .15s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2);text-decoration:none}
+.badge-row{display:flex;justify-content:center;gap:8px;margin-top:20px;flex-wrap:wrap}
+.badge-row img{height:20px}
+
+/* Section */
+.section{max-width:960px;margin:0 auto;padding:64px 24px}
+.section h2{font-size:28px;font-weight:700;text-align:center;margin-bottom:8px}
+.section .sub{color:var(--muted);text-align:center;margin-bottom:40px;font-size:16px}
+
+/* Features */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.feature{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+.feature .icon{font-size:28px;margin-bottom:12px}
+.feature h3{font-size:16px;font-weight:600;margin-bottom:6px}
+.feature p{font-size:14px;color:var(--muted)}
+
+/* Steps */
+.steps{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+.step{flex:1;min-width:200px;max-width:280px;text-align:center;padding:24px}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--purple);color:#fff;font-weight:700;font-size:18px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px}
+.step h3{font-size:15px;font-weight:600;margin-bottom:6px}
+.step p{font-size:13px;color:var(--muted)}
+
+/* Privacy */
+.privacy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.privacy-item{display:flex;align-items:flex-start;gap:10px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)}
+.privacy-check{color:#22c55e;font-size:18px;flex-shrink:0;margin-top:1px}
+.privacy-item p{font-size:14px}
+.privacy-item strong{font-size:14px;display:block;margin-bottom:2px}
+
+/* FAQ */
+.faq{max-width:720px;margin:0 auto}
+details{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;background:var(--card)}
+summary{padding:16px 20px;font-weight:600;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+summary::after{content:'+';font-size:20px;color:var(--muted);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 20px 16px;font-size:14px;color:var(--muted);line-height:1.7}
+
+/* Shortcut */
+kbd{padding:3px 7px;border:1px solid var(--border);border-radius:4px;background:#f1f5f9;font-family:'SF Mono','Fira Code',Consolas,monospace;font-size:12px}
+
+/* Footer */
+footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:13px;border-top:1px solid var(--border)}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--purple)}
+
+/* Dark mode */
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0f172a;--text:#e2e8f0;--muted:#94a3b8;--card:#1e293b;--border:#334155}
+  kbd{background:#1e293b;border-color:#475569}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <h1>Smart Lipsum</h1>
+  <p>Instant placeholder text for Chrome. Popup, right-click, and keyboard shortcut. Zero data collection. Under 50KB.</p>
+  <a class="cta" href="https://chrome.google.com/webstore/detail/EXTENSION_ID">Add to Chrome — Free</a>
+  <div class="badge-row">
+    <img src="https://img.shields.io/badge/version-1.0.0-white?style=flat-square" alt="Version 1.0.0">
+    <img src="https://img.shields.io/badge/size-~15KB-white?style=flat-square" alt="Size ~15KB">
+    <img src="https://img.shields.io/badge/license-MIT-white?style=flat-square" alt="MIT License">
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section class="section">
+  <h2>Features</h2>
+  <p class="sub">Everything you need for placeholder text, nothing you don't.</p>
+  <div class="features">
+    <div class="feature">
+      <div class="icon">&#9889;</div>
+      <h3>Three Input Methods</h3>
+      <p>Popup interface, right-click context menu, or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd> keyboard shortcut.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">&#182;</div>
+      <h3>Flexible Units</h3>
+      <p>Paragraphs, sentences, or exact word count. From 1 paragraph to 9,999 words.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">&#128196;</div>
+      <h3>Always Plain Text</h3>
+      <p>No rich text surprises. Pastes cleanly into VS Code, terminals, CMS, and any editor.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">&lt;/&gt;</div>
+      <h3>HTML Wrapping</h3>
+      <p>Optional <code>&lt;p&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;h1&gt;</code>&#8211;<code>&lt;h3&gt;</code> tags for quick prototyping.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">&#127912;</div>
+      <h3>Dark Mode</h3>
+      <p>Auto, light, or dark theme. Matches your browser and OS preference automatically.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">&#128274;</div>
+      <h3>Zero Data Collection</h3>
+      <p>No tracking, no analytics, no network requests. Works 100% offline.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="section" style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <h2>How It Works</h2>
+  <p class="sub">Generate placeholder text in three clicks or one shortcut.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Click the Icon</h3>
+      <p>Open the popup from the Chrome toolbar, or right-click any text field.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Choose Length</h3>
+      <p>Pick paragraphs, sentences, or words. Set the exact count you need.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Copy or Insert</h3>
+      <p>Click Copy, or let context menu insert directly. Text is on your clipboard.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRIVACY ═══ -->
+<section class="section">
+  <h2>Privacy</h2>
+  <p class="sub">Your data stays on your device. Always.</p>
+  <div class="privacy-grid">
+    <div class="privacy-item">
+      <span class="privacy-check">&#10003;</span>
+      <div><strong>No tracking or analytics</strong><p>Zero telemetry, no usage data collected.</p></div>
+    </div>
+    <div class="privacy-item">
+      <span class="privacy-check">&#10003;</span>
+      <div><strong>No network requests</strong><p>Never contacts any external server, API, or CDN.</p></div>
+    </div>
+    <div class="privacy-item">
+      <span class="privacy-check">&#10003;</span>
+      <div><strong>Works 100% offline</strong><p>Text generation happens entirely on your device.</p></div>
+    </div>
+    <div class="privacy-item">
+      <span class="privacy-check">&#10003;</span>
+      <div><strong>Minimal permissions</strong><p>Only clipboardWrite, storage, activeTab, contextMenus.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="section" style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <h2>Frequently Asked Questions</h2>
+  <p class="sub">Common questions about Smart Lipsum.</p>
+  <div class="faq">
+    <details>
+      <summary>What is the best Chrome extension for generating lorem ipsum text?</summary>
+      <p>Smart Lipsum is a lightweight Chrome extension that provides three ways to generate placeholder text: a popup interface for detailed control, a right-click context menu for quick insertion into text fields, and a customizable keyboard shortcut (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd>) for instant generation. It copies clean plain text, requires minimal permissions, and works entirely offline.</p>
+    </details>
+    <details>
+      <summary>How do I generate lorem ipsum text in Chrome without a website?</summary>
+      <p>Install Smart Lipsum from the Chrome Web Store. Click the extension icon to open the popup, choose your desired length (paragraphs, sentences, or words), and click "Copy to Clipboard." You can also right-click any text field and select from preset amounts, or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd> to generate and copy instantly.</p>
+    </details>
+    <details>
+      <summary>Does Smart Lipsum collect any user data?</summary>
+      <p>No. Smart Lipsum collects zero user data. It makes no network requests, includes no analytics or tracking code, and works 100% offline. The only data stored is your personal preferences (theme, presets), saved locally through Chrome's built-in sync storage.</p>
+    </details>
+    <details>
+      <summary>Can I generate HTML-formatted lorem ipsum text?</summary>
+      <p>Yes. Toggle the "Wrap in HTML tags" option and choose from <code>&lt;p&gt;</code>, <code>&lt;li&gt;</code> (wrapped in <code>&lt;ul&gt;</code>), or heading tags (<code>&lt;h1&gt;</code> through <code>&lt;h3&gt;</code>). The raw HTML code is copied to your clipboard, ready for pasting into code editors or CMS templates.</p>
+    </details>
+    <details>
+      <summary>What permissions does Smart Lipsum need?</summary>
+      <p>Smart Lipsum requires only four permissions: <code>clipboardWrite</code> (to copy text), <code>storage</code> (to save preferences), <code>activeTab</code> (to insert text via right-click), and <code>contextMenus</code> (to create the right-click menu). It does not request "read all data on all websites" or any broad browsing permissions.</p>
+    </details>
+    <details>
+      <summary>Does Smart Lipsum work offline?</summary>
+      <p>Yes, completely. Smart Lipsum works 100% offline. Text generation happens entirely on your device using a built-in word dictionary. The extension never contacts any external server, API, or CDN. Once installed, it works without any internet connection.</p>
+    </details>
+    <details>
+      <summary>Why does my current lorem ipsum extension copy rich text?</summary>
+      <p>Many lorem ipsum extensions use older copy methods that preserve text formatting. This causes issues when pasting into code editors, terminals, or CMS fields. Smart Lipsum always uses <code>navigator.clipboard.writeText()</code>, which guarantees clean plain text output without any formatting, fonts, or colors.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <p>
+    <a href="https://github.com/AlexBatok/lorem-ipsum">GitHub</a> &middot;
+    <a href="privacy-policy.html">Privacy Policy</a> &middot;
+    <a href="https://chrome.google.com/webstore/detail/EXTENSION_ID">Chrome Web Store</a>
+  </p>
+  <p style="margin-top:8px">Built with TypeScript &amp; Manifest V3. Under 50KB. Zero dependencies.</p>
+</footer>
+
+</body>
+</html>
