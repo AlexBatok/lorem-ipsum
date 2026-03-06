@@ -143,6 +143,16 @@ function showCopied(): void {
 
 btnCopy.addEventListener('click', copyToClipboard);
 
+// --- Footer links ---
+$('link-rate').addEventListener('click', (e) => {
+  e.preventDefault();
+  chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/mhbdpolifdmedilbifmekdiafpfdmckc/reviews' });
+});
+$('link-coffee').addEventListener('click', (e) => {
+  e.preventDefault();
+  chrome.tabs.create({ url: 'https://alexbatok.github.io/lorem-ipsum/#donate' });
+});
+
 // --- Init ---
 async function init(): Promise<void> {
   const s = await loadSettings();
